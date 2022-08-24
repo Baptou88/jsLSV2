@@ -20,14 +20,21 @@ export  class LLLSV2Com {
         this.socket.on('disconnect', function() {
             console.log('Got disconnect!');
         })
-        
+        this.socket.on('message', function(msg){
+            //var bufView = new Uint8Array(msg);
+            console.log(msg)
+          });
+
+        this.connected = true;
           
     };
     connect(){
         this.socket.connect();
+        this.connected = true;
     }
     disconnect(){
         this.socket.disconnect(true);
+        this.connected = false;
     }
     telegram(command,payload=undefined,buffer_size=0,wait_for_response=true){
         var payload_length
@@ -45,7 +52,15 @@ export  class LLLSV2Com {
         }
         var telegram = new Array()
         telegram.push()
+        console.log("telegram to transmit: command %s payload length %d bytes data: %s",
+            command,
+            payload_length,
+            telegram)
+        try {
+            this.socket.send(telegram)
+        } catch (error) {
+            console.error("something went wrong while waiting for new data to arrive, buffer was set to %d",buffer_size);
+        }
         
-        this.socket.send("er")
     }
 }
