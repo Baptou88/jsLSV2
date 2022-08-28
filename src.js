@@ -1,4 +1,4 @@
-import   {LLLSV2Com}  from "./lowlevelcom.js"
+import   {LLLSV2Com}  from "./src/lowlevelcom.js"
 
 var com = new LLLSV2Com("127.0.0.1");
 document.querySelector('#bonjour').innerHTML = com._hostname;

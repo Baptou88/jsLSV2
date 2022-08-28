@@ -1,5 +1,14 @@
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 //import { io } from "./node_modules/socket.io/wrapper.mjs";
+//import {socket} from './socket.io.js'
+//const io = requirejs('socket.io')
+//var io = socket.io()
+function buf2hex(buffer) { // buffer is an ArrayBuffer
+    return [...new Uint8Array(buffer)]
+        .map(x => x.toString(16).padStart(2, '0'))
+        .join('');
+}
+
 export  class LLLSV2Com {
     _DEFAULT_PORT = 19000;
     _DEFAULT_BUFFER_SIZE = 256;
@@ -26,7 +35,7 @@ export  class LLLSV2Com {
           });
 
         this.connected = true;
-          
+         
     };
     connect(){
         this.socket.connect();
@@ -50,8 +59,8 @@ export  class LLLSV2Com {
             this._DEFAULT_BUFFER_SIZE)
 
         }
-        var telegram = new Array()
-        telegram.push()
+        var telegram=[];
+        
         console.log("telegram to transmit: command %s payload length %d bytes data: %s",
             command,
             payload_length,
